@@ -1,4 +1,5 @@
 from tkinter import *
+from Busquedas import AAsterisco, Amplitud, PrimeroElMejor, Profundidad
 from Nodos import *
 
 class Programa(object):
@@ -38,17 +39,21 @@ class Programa(object):
             self.opciones.destroy()
             self.opciones = self.inicial.crear_estado_inicial(self.ventana)
             self.opciones.pack(side=RIGHT)
-        elif opc == 2:
-            pass
-        elif opc == 3:
-            pass
-        elif opc == 4:
-            pass
-        elif opc == 5:
-            pass
-        elif opc == 6:
-            pass
-        
+        elif (opc > 2 and (self.seleccion == 1 and 'M' in self.inicial.estado and 'R' in self.inicial.estado)):
+            print("Entró")
+            if opc == 3:
+                busqueda = Profundidad(self.inicial)
+            elif opc == 4:
+                busqueda = Amplitud(self.inicial)
+            elif opc == 5:
+                busqueda = AAsterisco(self.inicial)
+            elif opc == 6:
+                busqueda = PrimeroElMejor(self.inicial)
+            busqueda.cronometro(busqueda.buscar)
+            self.opciones.destroy()
+            self.opciones = busqueda.crear_frame(self.ventana)
+            self.frame.pack(side=RIGHT)
 
+# Ejecuta el programa
 if __name__ == "__main__":
     programa = Programa()

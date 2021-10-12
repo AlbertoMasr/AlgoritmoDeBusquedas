@@ -81,8 +81,9 @@ class NodoCamino(Nodo):
                 estadoaux[posicion] = 2
             nodoaux = NodoCamino(self, estadoaux, 3)
             sucesores.append(nodoaux)
+        return sucesores
 
-    def calcular_cost(self):
+    def calcular_costo(self):
         if self.padre is None:
             self.costo = 0
         elif self.operador == self.padre.operador:
@@ -91,7 +92,7 @@ class NodoCamino(Nodo):
             self.costo = self.padre.costo + 2
 
     def calcular_heuristica(self):
-        if 'M' in self.estado and 'R' in self.estado:
+        if 'M' in self.estado and 'X' in self.estado:
             self.heuristica = (abs(self.get_X('M') - self.get_X('X')) + abs(self.get_Y('M') - self.get_Y('X')))
         elif 'M' in self.estado:
             self.heuristica = (abs(self.get_X('M') - self.get_X('R')) + abs(self.get_Y('M') - self.get_Y('R')))
