@@ -39,8 +39,10 @@ class Programa(object):
             self.opciones.destroy()
             self.opciones = self.inicial.crear_estado_inicial(self.ventana)
             self.opciones.pack(side=RIGHT)
+        elif opc == 2:
+            pass
+        # Cuando se selecciona el modo de juego caminos y alguno de sus métodos de búsqueda
         elif (opc > 2 and (self.seleccion == 1 and 'M' in self.inicial.estado and 'R' in self.inicial.estado)):
-            print("Entró")
             if opc == 3:
                 busqueda = Profundidad(self.inicial)
             elif opc == 4:
@@ -52,7 +54,7 @@ class Programa(object):
             busqueda.cronometro(busqueda.buscar)
             self.opciones.destroy()
             self.opciones = busqueda.crear_frame(self.ventana)
-            self.frame.pack(side=RIGHT)
+            self.opciones.pack(side=RIGHT)
 
 # Ejecuta el programa
 if __name__ == "__main__":

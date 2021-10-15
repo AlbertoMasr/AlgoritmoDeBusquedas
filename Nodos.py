@@ -35,7 +35,7 @@ class NodoCamino(Nodo):
         super().__init__(padre, estado)
         self.operador = operador
 
-    def test_objetivos(self):
+    def test_objetivo(self):
         if 'M' in self.estado:
             return False
         else:
@@ -44,7 +44,6 @@ class NodoCamino(Nodo):
     def crear_sucesores(self):
         posicion = None
         sucesores = []
-        
         if self.profundidad == 0:
             posicion = self.estado.index('R')
         else:
@@ -61,7 +60,7 @@ class NodoCamino(Nodo):
         if((posicion + 1) % 10) != 0 and (self.estado[posicion + 1]) in [0, 'M']:
             estadoaux = copy.deepcopy(self.estado)
             estadoaux[posicion + 1] = 'X'
-            if(self.estado[posicion + 1]) != 'R':
+            if(self.estado[posicion]) != 'R':
                 estadoaux[posicion] = 2
             nodoaux = NodoCamino(self, estadoaux, 1)
             sucesores.append(nodoaux)
@@ -107,7 +106,7 @@ class NodoCamino(Nodo):
 
     def crear_frame(self, contenedor):
         operadores = ['↑', '→', '↓', '←']
-        frame = Frame(contenedor, width="350", height="244")
+        frame = Frame(contenedor, width="400", height="300")
         for fila in range(0, 10):
             for columna in range(0, 10):
                 pos = columna + (10 * fila)
@@ -119,7 +118,7 @@ class NodoCamino(Nodo):
                     padres = self.padre
                     while padres.estado[pos] != 'X':
                         padres = padres.padre
-                    Button(frame, text=operadores[padres.operador], width=2, height=1, bg="white").grid(rpw=fila, column=columna)
+                    Button(frame, text=operadores[padres.operador], width=2, height=1, bg="white").grid(row=fila, column=columna)
                 elif self.estado[pos] == 'R':
                     Button(frame, text="R", width=2, height=1, bg="white").grid(row=fila, column=columna)
                 elif self.estado[pos] == 'M':
@@ -145,7 +144,6 @@ class NodoCamino(Nodo):
         self.opcion_seleccionada = 3
         frame = Frame(contenedor)
         listaBloquear = [11, 21, 31, 41, 51, 24, 25, 18, 28, 38, 48, 63, 64, 65, 67, 77, 87, 97, 44]
-        contador = 0
         for fila in range(0, 10):
             for columna in range(0, 10):
                 self.botones.append(Button(frame, text="", width=2, height=1, bg="white"))
@@ -158,12 +156,11 @@ class NodoCamino(Nodo):
         self.botones.append(Button(frame, text="", width=2, height=1, bg="white"))
         self.botones[-1].grid(row=11, column=6)
         for boton in range(0, 103):
-            if contador in listaBloquear:
+            if boton in listaBloquear:
                 self.botones[boton].config(text="", bg="black")
-                self.estado[contador] = 1
+                self.estado[boton] = 1
             else:    
                 self.botones[boton].config(command=lambda boton=boton: self.pulsar(boton))
-            contador = contador + 1
         return frame
 
     def pulsar(self, posicion):

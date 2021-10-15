@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-
-from tkinter import *
 import time
-
+from tkinter import *
 class Busqueda(object):
     def __init__(self, inicio):
         self.abiertos = []
@@ -23,15 +21,15 @@ class Busqueda(object):
     
     def crear_frame(self, contenedor):
         frame = Frame(contenedor, width="500", height="400")
-        Label(frame, text="Resultador:").pack()
+        Label(frame, text="Resultado:").pack(side=BOTTOM)
         if not self.abiertos:
             Label(frame, text="No se encontró solución").pack()
         else:
-            self.cerrador[-1].crear_frame(frame).pack()
-            (Label(frame, text="Nodos totales: "+ str(len(self.abiertos) + len(self.cerrados))).pack())
-            (Label(frame, text="Nodos abiertos: "+ str(len(self.abiertos))).pack())
-            (Label(frame, text="Nodos cerrados: "+ str(len(self.cerrados))).pack())
-            Label(frame, text="Tiempo: "+ str(self.tiempo_total)).pack()
+            self.cerrados[-1].crear_frame(frame).pack()
+            (Label(frame, text="Nodos totales: "+ str(len(self.abiertos) + len(self.cerrados))).pack(side=BOTTOM))
+            (Label(frame, text="Nodos abiertos: "+ str(len(self.abiertos))).pack(side=BOTTOM))
+            (Label(frame, text="Nodos cerrados: "+ str(len(self.cerrados))).pack(side=BOTTOM))
+            Label(frame, text="Tiempo: "+ str(self.tiempo_total)).pack(side=BOTTOM)
         frame.pack_propagate(False)
         return frame
 
